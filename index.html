@@ -60,6 +60,40 @@
 		#array{
 			position:absolute;z-index:999;-webkit-animation: tipmove 1.5s infinite ease-in-out;
 		}
+		.btn_music{
+			display: block; width: 25px; height: 25px; background-size: 100%;background-position: 0 0;
+		}
+
+		.btn_music {
+			background-image: url(./images/music.png);
+			background-repeat: no-repeat;
+			z-index: 3;
+		}
+
+		.btn_music.on{-webkit-animation: reverseRotataZ 1.2s linear infinite;}
+
+		@-webkit-keyframes reverseRotataZ{
+			0%{-webkit-transform: rotateZ(0deg);}
+			100%{-webkit-transform: rotateZ(-360deg);}
+		}
+
+		@-webkit-keyframes case1 {
+		  0% {height : 0}
+		  50% {height : 33px;}
+		  100% {height : 0}
+		}
+
+		@-webkit-keyframes case2 {
+		  0% {height : 0}
+		  50% {height : 38px;}
+		  100% {height : 0}
+		}
+
+		@-webkit-keyframes case3 {
+		  0% {height : 0}
+		  50% {height : 35px;}
+		  100% {height : 0}
+		}
 		</style>
 	</head>
 	<body>
@@ -122,10 +156,18 @@
 					<img src="images/s1.png"    class="ani resize" style="width:320px;height:200px;left:0px;top:140px;z-index:1;" swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s"    >
 				</section>
 			</div>
+
+			<div class="resize" id="musicWrap" style="z-index:3;position:absolute;width:20px;height:20px; top:20px; right:20px;">
+				<span class="text move hide"></span>
+				<i id="audioBtn" data-src="music.mp3" class="btn_music on"></i>
+			</div>
+	
 			<img src="images/web-swipe-tip.png" style="width:20px;height:15px; top:460px; left:150px;" id="array" class="resize"> 
 			<div class="swiper-pagination"></div>    
 		</div>
 
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/player.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">    
 			scaleW=window.innerWidth/320;
 			scaleH=window.innerHeight/480;
@@ -155,6 +197,12 @@
 												swiperAnimate(swiper);
 											}	    
 										});
+			$(function(){
+				if(typeof audioPlayer == "undefined"){
+					audioPlayer = new Player($('#audioBtn'));
+				}
+				audioPlayer._audio.play();
+			});
 		</script>
 	</body>
 </html>
